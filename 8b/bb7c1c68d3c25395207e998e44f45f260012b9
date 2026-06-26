@@ -1,0 +1,22 @@
+pages/samara-te-amo.js
+  s_0262c54f38cec7::t_4dc6e20f7e0e1b 117-118,120
+  s_0262c54f38cec7::t_333525a5d93221 224-225
+  s_0262c54f38cec7::t_26bac7a87d4e1d 125-126
+  s_0262c54f38cec7::t_46983c409dad6d 247-248,252,257-263
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "8bbb7c1c68d3c25395207e998e44f45f260012b9",
+  "prompts": {},
+  "sessions": {
+    "s_0262c54f38cec7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "be55601e-94c5-43cf-880b-f24ffebb184b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "jose araujo <jose.aaraujo@mercadolivre.com>"
+    }
+  }
+}
