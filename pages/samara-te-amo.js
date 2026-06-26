@@ -132,7 +132,7 @@ function SamaraTeAmo() {
       >
         <h1>Pra Samara</h1>
         <button className="play-button" aria-label="Tocar">▶</button>
-        <p>Toque para começar — com som</p>
+        <p>Toque para começar, com som</p>
       </div>
 
       <main>
@@ -145,7 +145,7 @@ function SamaraTeAmo() {
         <div className="declaration">
           <p>
             Tem músicas que parecem ter sido escritas pra gente. Quando o Zeca
-            canta que acordou <em>mais feliz</em>, eu entendo cada palavra —
+            canta que acordou <em>mais feliz</em>, eu entendo cada palavra,
             porque você chegou, e desde então o meu peito tem batido no compasso
             do samba.
           </p>
@@ -158,10 +158,11 @@ function SamaraTeAmo() {
           </p>
           <p>
             Gostamos das mesmas músicas, dos mesmos passeios, do mesmo Recife que
-            a gente ama tanto — aquele Recife do mar, do vento quente, da vida
-            que pulsa de um jeito que só quem é daqui entende. E até a cerveja
-            eu aprendi a gostar com você. Tem algo muito bonito nisso: você foi
-            chegando e foi me fazendo querer as coisas que você gosta.
+            a gente ama tanto, aquele Recife do mar, do vento quente, da vida
+            que pulsa de um jeito que só quem é daqui entende. E até a Brahma
+            Chopp, a sua cerveja preferida, eu aprendi a gostar com você. Tem
+            algo muito bonito nisso: você foi chegando e foi me fazendo querer
+            as coisas que você gosta.
           </p>
           <p className="quote">
             &ldquo;No temporal, você é meu farol de milha.
@@ -172,29 +173,41 @@ function SamaraTeAmo() {
             Eu me belisco de vez em quando pra ver se é verdade. É. É muito
             real, Samara. Cada viagem que a gente planeja, cada momento que a
             gente vive junto vai me convencendo mais de que isso aqui não é só
-            amor — é destino. E é <em>raiz</em>: daquelas que ficam fundas, que
+            amor, é destino. E é <em>raiz</em>: daquelas que ficam fundas, que
             sustentam a árvore quando o vento bate, e que enchem de fruto cada
             estação que vier.
           </p>
           <p>
-            Eu não quero um amor passageiro. Quero o <em>último romance</em> —
+            Eu não quero um amor passageiro. Quero o <em>último romance</em>,
             aquele que a gente leva pro resto da vida sem cansar, que a gente
             vai contar um dia com um sorriso enorme no rosto. E eu quero que
             esse romance seja com você.
           </p>
+
+          <div className="photo-frame photo-frame-inline">
+            <img
+              src="/images/logos/samara-dan-sport.jpeg"
+              alt="Eu e a Samara"
+            />
+          </div>
+
           <p>
             Aqui está o começo. Aqui está a promessa de uma vida escrita a dois,
             com a calma de quem sabe que tem tempo, e a pressa boa de quem não
             quer perder um minuto ao seu lado. No nosso Recife, com a nossa
-            cerveja, na nossa vida — eu escolho você pra viver.
+            Brahma Chopp, na nossa vida. Eu escolho você pra viver.
           </p>
 
           <p className="signature">
-            Te amo, Samara. Completamente. E hoje, mais feliz. — Dan
+            Te amo, Samara. Completamente.
+            <br />
+            E hoje, mais feliz.
+            <br />
+            Dan.
           </p>
         </div>
 
-        <p className="song-credit">Mais Feliz — Zeca Pagodinho</p>
+        <p className="song-credit">Mais Feliz, de Zeca Pagodinho</p>
       </main>
 
       <button
@@ -360,26 +373,35 @@ function SamaraTeAmo() {
           transform: translateY(14px);
           animation: fadeUp 1.4s ease-out forwards;
         }
-        .declaration p:nth-child(1) {
+        .declaration p:nth-of-type(1) {
           animation-delay: 1.6s;
         }
-        .declaration p:nth-child(2) {
+        .declaration p:nth-of-type(2) {
           animation-delay: 2s;
         }
-        .declaration p:nth-child(3) {
+        .declaration p:nth-of-type(3) {
           animation-delay: 2.4s;
         }
-        .declaration p:nth-child(4) {
+        .declaration p:nth-of-type(4) {
           animation-delay: 2.8s;
         }
-        .declaration p:nth-child(5) {
+        .declaration p:nth-of-type(5) {
           animation-delay: 3.2s;
         }
-        .declaration p:nth-child(6) {
+        .declaration p:nth-of-type(6) {
           animation-delay: 3.6s;
         }
-        .declaration p:nth-child(7) {
+        .declaration p:nth-of-type(7) {
+          animation-delay: 4.4s;
+        }
+
+        .photo-frame-inline {
+          margin-top: 1rem;
+          margin-bottom: 1rem;
           animation-delay: 4s;
+        }
+        .photo-frame-inline img {
+          width: min(360px, 75vw);
         }
 
         .declaration em {
@@ -405,8 +427,9 @@ function SamaraTeAmo() {
           font-family: 'Dancing Script', cursive;
           font-size: clamp(1.6rem, 3.5vw, 2.4rem);
           color: var(--accent);
+          line-height: 1.3;
           opacity: 0;
-          animation: fadeUp 1.6s ease-out 4.4s forwards;
+          animation: fadeUp 1.6s ease-out 4.8s forwards;
         }
 
         .song-credit {
@@ -415,7 +438,7 @@ function SamaraTeAmo() {
           color: var(--text-soft);
           letter-spacing: 0.04em;
           opacity: 0;
-          animation: fadeUp 1.4s ease-out 4.8s forwards;
+          animation: fadeUp 1.4s ease-out 5.2s forwards;
         }
         .song-credit::before {
           content: '♪  ';
