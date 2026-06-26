@@ -1,0 +1,21 @@
+pages/samara-te-amo.js
+  s_0262c54f38cec7::t_4e9838326f1f82 153-157,160-164,166-178,180-183,188-189,192-194
+  s_0262c54f38cec7::t_0b76492333c4f8 378-383,387-391,393-400,409,418
+  s_0262c54f38cec7::t_cf1bcd10b37fdf 1-152,158-159,165,179,184-187,190-191,195-377,384-386,392,401-408,410-417,419-538
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "411531f051044103f296b20e93c1f9b60aa1e057",
+  "prompts": {},
+  "sessions": {
+    "s_0262c54f38cec7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "be55601e-94c5-43cf-880b-f24ffebb184b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "José Araújo <dansa.rectech@gmail.com>"
+    }
+  }
+}
