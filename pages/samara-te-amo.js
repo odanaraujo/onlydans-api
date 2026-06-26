@@ -114,13 +114,16 @@ function SamaraTeAmo() {
         <meta name="robots" content="noindex, nofollow" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <meta name="theme-color" content="#1a0d12" />
+        <meta name="color-scheme" content="dark" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@500;700&display=swap"
           rel="stylesheet"
         />
       </Head>
 
-      <div className="petals" aria-hidden="true" ref={petalsRef}></div>
+      <div className="page-bg">
+        <div className="petals" aria-hidden="true" ref={petalsRef}></div>
 
       <div
         className={`start-overlay${started ? ' hidden' : ''}`}
@@ -218,7 +221,8 @@ function SamaraTeAmo() {
         {isMuted ? '🔇' : '🔊'}
       </button>
 
-      <div id="yt-player"></div>
+        <div id="yt-player"></div>
+      </div>
 
       <style jsx global>{`
         :root {
@@ -240,15 +244,23 @@ function SamaraTeAmo() {
 
         html,
         body {
-          height: 100%;
+          min-height: 100%;
+          background-color: var(--bg-1);
         }
 
         body {
-          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-family: 'Lora', Georgia, 'Times New Roman', serif;
           color: var(--text);
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
+          overflow-x: hidden;
+          line-height: 1.6;
+          position: relative;
+        }
+
+        .page-bg {
+          min-height: 100vh;
           background:
             radial-gradient(
               ellipse at top left,
@@ -266,9 +278,6 @@ function SamaraTeAmo() {
               var(--bg-2) 50%,
               var(--bg-3) 100%
             );
-          min-height: 100vh;
-          overflow-x: hidden;
-          line-height: 1.6;
           position: relative;
         }
 
