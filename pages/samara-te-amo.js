@@ -246,6 +246,9 @@ function SamaraTeAmo() {
         body {
           font-family: 'Cormorant Garamond', Georgia, serif;
           color: var(--text);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
           background:
             radial-gradient(
               ellipse at top left,
@@ -362,13 +365,15 @@ function SamaraTeAmo() {
         }
 
         .declaration {
-          font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+          font-size: clamp(1.2rem, 1.8vw, 1.4rem);
           color: var(--text);
           max-width: 620px;
           margin: 0 auto;
         }
         .declaration p {
           margin-bottom: 1.4rem;
+          font-weight: 500;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
           opacity: 0;
           transform: translateY(14px);
           animation: fadeUp 1.4s ease-out forwards;
@@ -412,7 +417,8 @@ function SamaraTeAmo() {
         .declaration .quote {
           font-family: 'Dancing Script', cursive;
           font-style: italic;
-          font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+          font-weight: 600;
+          font-size: clamp(1.45rem, 2.4vw, 1.85rem);
           color: var(--accent-soft);
           line-height: 1.5;
           padding: 1.2rem 0;
@@ -420,6 +426,7 @@ function SamaraTeAmo() {
           border-top: 1px solid rgba(231, 192, 138, 0.25);
           border-bottom: 1px solid rgba(231, 192, 138, 0.25);
           max-width: 90%;
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
         }
 
         .signature {
@@ -552,6 +559,30 @@ function SamaraTeAmo() {
         }
         .audio-toggle.visible {
           display: flex;
+        }
+
+        @media (max-width: 640px) {
+          main {
+            padding: 3rem 1.25rem 5rem;
+          }
+          .declaration {
+            font-size: 1.25rem;
+            line-height: 1.7;
+          }
+          .declaration p {
+            font-weight: 600;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+          }
+          .declaration .quote {
+            font-size: 1.5rem;
+            font-weight: 700;
+          }
+          .opening {
+            font-weight: 700;
+          }
+          .signature {
+            font-weight: 700;
+          }
         }
       `}</style>
     </>
