@@ -7,6 +7,16 @@ import {
 const MAX_TEAMS_TO_LIST = 500;
 const MAX_REQUESTS_PER_WINDOW = 8;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const CONNECTION_ERROR_CODES = new Set([
+  "ECONNABORTED",
+  "ECONNREFUSED",
+  "ECONNRESET",
+  "EAI_AGAIN",
+  "EHOSTUNREACH",
+  "ENETUNREACH",
+  "ENOTFOUND",
+  "ETIMEDOUT",
+]);
 const requestsByIp = new Map();
 
 function isRateLimited(request) {
@@ -33,6 +43,27 @@ function hasTrustedOrigin(request) {
   }
 }
 
+function getDatabaseErrorMetadata(error) {
+  const errorCode = [error?.code, error?.cause?.code].find(
+    (code) => typeof code === "string",
+  );
+  const isPostgresConnectionError = /^08\d{3}$/.test(errorCode || "");
+  const isConnectionError =
+    CONNECTION_ERROR_CODES.has(errorCode) || isPostgresConnectionError;
+
+  return {
+    category: isConnectionError ? "connection" : "database",
+    code: isConnectionError || errorCode === "23505" ? errorCode : "unknown",
+  };
+}
+
+function logDatabaseFailure(operation, error) {
+  console.error("volleyball-team-database-failed", {
+    operation,
+    ...getDatabaseErrorMetadata(error),
+  });
+}
+
 export default async function handler(request, response) {
   if (request.method === "GET") {
     try {
@@ -50,8 +81,8 @@ export default async function handler(request, response) {
           playerTwoName: team.player_two_name,
         })),
       });
-    } catch {
-      console.error("volleyball-team-list-failed");
+    } catch (error) {
+      logDatabaseFailure("list", error);
       return response
         .status(500)
         .json({ error: "Não foi possível carregar os times." });
@@ -102,7 +133,7 @@ export default async function handler(request, response) {
         .json({ error: "Este nome de time já foi cadastrado." });
     }
 
-    console.error("volleyball-team-registration-failed");
+    logDatabaseFailure("registration", error);
     return response
       .status(500)
       .json({ error: "Não foi possível concluir a inscrição." });
