@@ -104,6 +104,26 @@ Acesse: `http://localhost:3000`
 
 ## 🔌 API Endpoints
 
+### Campeonato Galerinha do Vôlei
+
+- Inscrição: `/campeonato-galerinha-do-volei`
+- Times inscritos: `/campeonato-galerinha-do-volei/times`
+- API: `GET` e `POST /api/volleyball-teams`
+
+O projeto usa o PostgreSQL local do projeto vizinho `../fintech-api`. Com o banco iniciado,
+crie a tabela de inscrições uma vez:
+
+```bash
+npm run db:migrate:volleyball
+```
+
+O comando `npm run dev` carrega automaticamente as variáveis de desenvolvimento do
+`fintech-api` quando esse projeto vizinho estiver disponível.
+
+Em produção, o projeto usa a variável secreta `DATABASE_URL`, configurada pela
+integração Neon no ambiente Production da Vercel. Não inclua essa URL em arquivos
+versionados.
+
 ### `GET /api/news`
 
 Busca notícias do Google News RSS com cache de 1 hora.
