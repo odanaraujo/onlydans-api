@@ -1,6 +1,10 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import {
+  getRegistrationValidationError,
+  JERSEY_SIZES,
+} from "../lib/volleyball-registration";
 
 const INITIAL_FORM = {
   teamName: "",
@@ -8,8 +12,6 @@ const INITIAL_FORM = {
   playerTwoName: "",
   jerseySize: "",
 };
-const JERSEY_SIZES = ["PP", "P", "M", "G", "GG", "XGG"];
-
 export default function GalerinhaDoVolei() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [status, setStatus] = useState({ type: "idle", message: "" });
@@ -18,10 +20,18 @@ export default function GalerinhaDoVolei() {
   function updateField(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
+    if (status.type === "error") setStatus({ type: "idle", message: "" });
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
+    const validationError = getRegistrationValidationError(form);
+
+    if (validationError) {
+      setStatus({ type: "error", message: validationError });
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
     try {
@@ -152,7 +162,10 @@ export default function GalerinhaDoVolei() {
               ))}
             </select>
             {status.type !== "idle" && (
-              <p className={`form-status ${status.type}`} role="status">
+              <p
+                className={`form-status ${status.type}`}
+                role={status.type === "error" ? "alert" : "status"}
+              >
                 {status.message}
               </p>
             )}

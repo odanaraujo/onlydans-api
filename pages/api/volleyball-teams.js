@@ -1,24 +1,13 @@
 import { query } from "../../lib/database";
+import {
+  getRegistrationValidationError,
+  normalizeRegistration,
+} from "../../lib/volleyball-registration";
 
-const JERSEY_SIZES = new Set(["PP", "P", "M", "G", "GG", "XGG"]);
-const NAME_PATTERN = /^[\p{L}\p{M}][\p{L}\p{M}' -]*$/u;
-const TEAM_PATTERN = /^[\p{L}\p{M}0-9][\p{L}\p{M}0-9' .&()-]*$/u;
 const MAX_TEAMS_TO_LIST = 500;
 const MAX_REQUESTS_PER_WINDOW = 8;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const requestsByIp = new Map();
-
-function normalizeText(value) {
-  return typeof value === "string" ? value.trim().replace(/\s+/g, " ") : "";
-}
-
-function isValidName(value) {
-  return value.length >= 2 && value.length <= 80 && NAME_PATTERN.test(value);
-}
-
-function isValidTeamName(value) {
-  return value.length >= 2 && value.length <= 60 && TEAM_PATTERN.test(value);
-}
 
 function isRateLimited(request) {
   const now = Date.now();
@@ -86,30 +75,11 @@ export default async function handler(request, response) {
     });
   }
 
-  const teamName = normalizeText(request.body?.teamName);
-  const playerOneName = normalizeText(request.body?.playerOneName);
-  const playerTwoName = normalizeText(request.body?.playerTwoName);
-  const jerseySize = normalizeText(request.body?.jerseySize).toUpperCase();
+  const registration = normalizeRegistration(request.body);
+  const validationError = getRegistrationValidationError(registration);
 
-  if (
-    !isValidTeamName(teamName) ||
-    !isValidName(playerOneName) ||
-    !isValidName(playerTwoName) ||
-    !JERSEY_SIZES.has(jerseySize)
-  ) {
-    return response
-      .status(422)
-      .json({ error: "Confira os dados da inscrição." });
-  }
-
-  if (
-    playerOneName.localeCompare(playerTwoName, "pt-BR", {
-      sensitivity: "base",
-    }) === 0
-  ) {
-    return response
-      .status(422)
-      .json({ error: "Os dois jogadores devem ser pessoas diferentes." });
+  if (validationError) {
+    return response.status(422).json({ error: validationError });
   }
 
   try {
@@ -117,7 +87,12 @@ export default async function handler(request, response) {
       `INSERT INTO volleyball_teams (team_name, player_one_name, player_two_name, jersey_size)
        VALUES ($1, $2, $3, $4)
        RETURNING id`,
-      [teamName, playerOneName, playerTwoName, jerseySize],
+      [
+        registration.teamName,
+        registration.playerOneName,
+        registration.playerTwoName,
+        registration.jerseySize,
+      ],
     );
     return response.status(201).json({ id: result.rows[0].id });
   } catch (error) {
